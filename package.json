@@ -1,0 +1,25 @@
+{
+  "name": "ahsan-portfolio",
+  "version": "1.0.0",
+  "description": "MERN Stack Portfolio website",
+  "main": "server.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahsannishad/MERN-Portfolio.git"
+  },
+  "keywords": [
+    "MERN",
+    "Website",
+    "Portfolio",
+    "website"
+  ],
+  "author": "Ahsan Nishad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahsannishad/MERN-Portfolio/issues"
+  },
+  "homepage": "https://github.com/ahsannishad/MERN-Portfolio#readme"
+}
