@@ -1,0 +1,173 @@
+nav {
+	z-index: 2;
+}
+
+/* side Bar Design starts */
+.bi {
+	width: 16px;
+	height: 16px;
+	margin-bottom: 1.5px;
+	vertical-align: text-bottom;
+}
+.segment {
+	padding-top: 100px;
+	padding-bottom: 100px;
+	width: 100%;
+	min-height: 500px;
+}
+.section-image {
+	width: 100%;
+	height: 100%;
+}
+.introduction {
+	font-family: "Noto Sans", sans-serif;
+	color: gray;
+}
+.heading {
+	color: #343a40;
+	font-size: 3.5rem;
+	font-weight: bolder;
+	font-family: Times New Roman;
+}
+.sub-heading {
+	font-family: "Noto Sans", sans-serif;
+	color: gray;
+}
+/*Responsive Style*/
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	.segment {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		width: 100%;
+	}
+
+	.introduction {
+		text-align: center !important;
+	}
+	.heading {
+		text-align: center !important;
+		font-size: 3rem;
+		font-weight: bolder;
+	}
+
+	.sub-heading {
+		text-align: center !important;
+	}
+	.contact-button {
+		text-align: center;
+		margin-bottom: 70px;
+	}
+
+	.section-image {
+		margin-bottom: 50px;
+		width: 100%;
+		height: 100%;
+	}
+}
+/* Home Page design starts */
+.hero {
+	background-color: #eceaec;
+}
+.sub-hero {
+	background-color: white;
+}
+.expertise {
+	background-color: #eef1fa;
+}
+
+.project-card-thumbnail {
+	border-radius: 10px 10px 0px 0px;
+}
+.project-card {
+	border-radius: 10px;
+}
+.project-card-title {
+	font-weight: bolder;
+	color: #343a40;
+}
+.project-card-badge {
+	background-color: #dae2ec;
+	color: #828282;
+	padding: 5px;
+}
+
+.blog-card-thumbnail {
+	border-radius: 10px 10px 0px 0px;
+}
+.blog-card {
+	border-radius: 10px;
+}
+.blog-card-title {
+	font-weight: bolder;
+	color: #343a40;
+}
+.blog-card-badge {
+	background-color: #dae2ec;
+	color: #828282;
+	padding: 5px;
+}
+
+.blog-card-description {
+	color: #4f4f4f;
+	font-weight: bolder;
+}
+.blog-readmore-button {
+	background-color: #dae2ec;
+}
+/* Home Page design ends */
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1; /* Behind the navbar */
+	padding: 48px 0 0; /* Height of navbar */
+	box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 767.98px) {
+	.sidebar {
+		top: 5rem;
+	}
+}
+
+.sidebar-sticky {
+	position: relative;
+	top: 0;
+	height: calc(100vh - 48px);
+	padding-top: 0.5rem;
+	overflow-x: hidden;
+	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+	.sidebar-sticky {
+		position: -webkit-sticky;
+		position: sticky;
+	}
+}
+
+.sidebar .nav-link {
+	font-weight: 500;
+	color: #333;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+	color: inherit;
+}
+
+.sidebar-heading {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+}
+
+/* side Bar Design Ends */
+
+/* Home Page design starts */

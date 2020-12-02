@@ -43,15 +43,7 @@ function Navbar() {
 							Blogs
 						</NavLink>
 					</li>
-					<li className="nav-item">
-						<NavLink
-							activeClassName="active-menu"
-							className="nav-link"
-							to="/about"
-						>
-							About
-						</NavLink>
-					</li>
+
 					<li className="nav-item">
 						<NavLink
 							activeClassName="active-menu"

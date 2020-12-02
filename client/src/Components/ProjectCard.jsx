@@ -1,60 +1,27 @@
 import React from "react";
 
-function ProjectCard() {
+function ProjectCard(props) {
 	return (
-		<div className="card-deck mb-4 m-3">
-			<div className="card">
-				<img
-					src="https://th.bing.com/th/id/OIP.xOne3PmU-6zocK1OI8FbowHaH3?pid=Api&rs=1"
-					className="card-img-top"
-					alt="..."
-				/>
-				<div className="card-body">
-					<h5 className="card-title">Card title</h5>
-					<p className="card-text">
-						This is a wider card with supporting text below as a natural lead-in
-						to additional content. This card has even longer content than the
-						first to show that equal height action.
-					</p>
-					<p className="card-text">
-						<small className="text-muted">Last updated 3 mins ago</small>
-					</p>
-				</div>
-			</div>
-			<div className="card">
-				<img
-					src="https://th.bing.com/th/id/OIP.xOne3PmU-6zocK1OI8FbowHaH3?pid=Api&rs=1"
-					className="card-img-top"
-					alt="..."
-				/>
-				<div className="card-body">
-					<h5 className="card-title">Card title</h5>
-					<p className="card-text">
-						This is a wider card with supporting text below as a natural lead-in
-						to additional content. This card has even longer content than the
-						first to show that equal height action.
-					</p>
-					<p className="card-text">
-						<small className="text-muted">Last updated 3 mins ago</small>
-					</p>
-				</div>
-			</div>
-			<div className="card">
-				<img
-					src="https://th.bing.com/th/id/OIP.xOne3PmU-6zocK1OI8FbowHaH3?pid=Api&rs=1"
-					className="card-img-top"
-					alt="..."
-				/>
-				<div className="card-body">
-					<h5 className="card-title">Card title</h5>
-					<p className="card-text">
-						This is a wider card with supporting text below as a natural lead-in
-						to additional content. This card has even longer content than the
-						first to show that equal height action.
-					</p>
-					<p className="card-text">
-						<small className="text-muted">Last updated 3 mins ago</small>
-					</p>
+		<div className="card project-card">
+			<img
+				src={props.thumbnail}
+				className="card-img-top project-card-thumbnail"
+				alt="thumbnail"
+			/>
+			<div className="card-body">
+				<h4 className="card-title text-center project-card-title">
+					{props.title}
+				</h4>
+				<div className="project-badge text-center">
+					<span className="badge project-card-badge badge-light m-2">
+						{props.badge1}
+					</span>
+					<span className="badge project-card-badge badge-light m-2">
+						{props.badge2}
+					</span>
+					<span className="badge project-card-badge badge-light m-2">
+						{props.badge3}
+					</span>
 				</div>
 			</div>
 		</div>

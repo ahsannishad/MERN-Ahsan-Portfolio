@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-function Login() {
+function Login(props) {
+	// const [user, setUser] = useState(true);
+	// if (user) {
+	// 	console.log(props);
+	// 	// return <Redirect to={props.location.state.from} />;
+	// } else {
 	return (
 		<div className="text-center mt-5">
 			<form className="form-signin mt-5">
@@ -41,6 +47,7 @@ function Login() {
 			</form>
 		</div>
 	);
+	// }
 }
 
 export default Login;
