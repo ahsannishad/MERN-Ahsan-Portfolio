@@ -1,18 +1,13 @@
 import React from "react";
+import Logo from "./../Assets/Images/ahsan-logo.png";
 
 function Footer() {
 	return (
 		<div className="container-fluid bg-light">
 			<footer className=" pt-5   border-top bg-light ">
 				<div className="row">
-					<div className="col-12 col-md">
-						<img
-							className="mb-2"
-							src="../assets/brand/bootstrap-solid.svg"
-							alt=""
-							width="24"
-							height="24"
-						/>
+					<div className="col-12 col-md text-center">
+						<img className="mb-2" src={Logo} alt="" width="24" height="24" />
 						<small className="d-block mb-3 text-muted">
 							&copy; Ahsan all right reserved
 						</small>

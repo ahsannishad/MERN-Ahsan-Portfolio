@@ -2,6 +2,27 @@ nav {
 	z-index: 2;
 }
 
+/*
+ * Navbar
+ */
+
+.navbar-admin-brand {
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	font-size: 1rem;
+	background-color: rgba(0, 0, 0, 0.25);
+	box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
+}
+
+.navbar .navbar-toggler {
+	top: 0.25rem;
+	right: 1rem;
+}
+
+.active-nav {
+	color: #007bff;
+}
+
 /* side Bar Design starts */
 .bi {
 	width: 16px;
@@ -64,7 +85,69 @@ nav {
 		width: 100%;
 		height: 100%;
 	}
+
+	.project-preview-description {
+		text-align: center;
+	}
+	.project-preview-functionality-title {
+		text-align: center;
+	}
+	.functionality-badge {
+		text-align: center;
+	}
+	.framework-badge {
+		text-align: center;
+	}
 }
+
+.remove-image-button {
+	border-radius: 100%;
+	position: relative;
+	top: 20px;
+	z-index: 2;
+}
+
+.custom-project-image-input {
+	display: none;
+}
+.custom-project-image-label {
+	background-color: black;
+	color: white;
+	border-radius: 10px;
+	padding: 10px;
+	position: relative;
+	bottom: 45px;
+}
+.uploaded {
+	width: fit-content;
+	height: fit-content;
+	background-color: green;
+	color: white;
+	border-radius: 10px;
+	padding: 10px;
+	position: relative;
+	bottom: 45px;
+}
+
+.project-image1-div {
+	background-color: #eef1fa;
+	min-height: fit-content;
+	color: white;
+	border-radius: 20px;
+}
+.project-image2-div {
+	background-color: #eef1fa;
+	min-height: fit-content;
+	color: white;
+	border-radius: 20px;
+}
+.project-image3-div {
+	background-color: #eef1fa;
+	min-height: fit-content;
+	color: white;
+	border-radius: 20px;
+}
+
 /* Home Page design starts */
 .hero {
 	background-color: #eceaec;
@@ -115,7 +198,22 @@ nav {
 .blog-readmore-button {
 	background-color: #dae2ec;
 }
+
+.project-category {
+	max-width: fit-content;
+}
+.project-date {
+	max-width: fit-content;
+}
 /* Home Page design ends */
+
+.project-preview-image {
+	border-radius: 20px;
+}
+
+.view-project-card {
+	width: fit-content;
+}
 
 /*
  * Sidebar
@@ -126,16 +224,16 @@ nav {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1; /* Behind the navbar */
+	z-index: 100; /* Behind the navbar */
 	padding: 48px 0 0; /* Height of navbar */
 	box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 767.98px) {
+/* @media (max-width: 767.98px) {
 	.sidebar {
 		top: 5rem;
 	}
-}
+} */
 
 .sidebar-sticky {
 	position: relative;

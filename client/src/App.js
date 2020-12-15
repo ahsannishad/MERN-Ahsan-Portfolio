@@ -10,6 +10,8 @@ import Contact from "./Pages/Contact";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import ProjectDetails from "./Pages/ProjectDetails";
+import AddProject from "./Pages/AddProject";
 
 function App() {
 	const [user, setUser] = useState(false);
@@ -27,23 +29,26 @@ function App() {
 						<Projects />
 						<Footer />
 					</Route>
+					<Route exact path="/projects/:projectid">
+						<Header />
+						<ProjectDetails />
+						<Footer />
+					</Route>
 					<Route exact path="/blogs">
 						<Header />
 						<Blogs />
 						<Footer />
 					</Route>
-
 					<Route exact path="/contact">
 						<Header />
 						<Contact />
 						<Footer />
 					</Route>
-
 					<Route exact path="/admin">
 						<Login />
 					</Route>
-
 					<Route exact path="/dashboard" component={Dashboard} />
+					<Route exact path="/add-project" component={AddProject} />
 				</Switch>
 			</Router>
 		</Fragment>
