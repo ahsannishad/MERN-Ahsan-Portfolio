@@ -13,7 +13,6 @@ function AddProject() {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState("");
-	const [images, setImages] = useState([]);
 	const [imagesURL, setImagesURL] = useState([]);
 	const [previewUrl, setPreviewUrl] = useState("");
 	const [functionalities, setFunctionalities] = useState([]);
@@ -24,26 +23,20 @@ function AddProject() {
 
 	const [publishing, setPublishing] = useState(false);
 	const [previewImages, setPreviewImages] = useState([]);
+	const [uploadingImages, setUploadingImages] = useState(false);
+	const [uploadingImagesSnap, setUploadingImagesSnap] = useState(
+		"Uploading Images"
+	);
 
-	const payload = {
-		title,
-		description,
-		category,
-		functionalities,
-		frameworks,
-		previewImages: imagesURL,
-		previewLink: previewUrl,
-	};
-
-	async function handleSubmit(event) {
+	function handleSubmit(event) {
 		event.preventDefault();
 		setPublishing(true);
 
-		if (images.length < 3) {
+		if (imagesURL.length < 3) {
 			setPublishing(false);
 			showAlert({
 				title: "Attention!",
-				message: "Please select minimum 3 Images",
+				message: "3 Images are required",
 				version: "warning",
 			});
 		} else if (!functionalities.length) {
@@ -61,56 +54,25 @@ function AddProject() {
 				version: "warning",
 			});
 		} else {
-			try {
-				//first references
-				const firstImageRef = fireStorage.ref(images[0].name);
-				const uploadFirstImage = await firstImageRef.put(images[0]);
-				const firstImageUrl = await firstImageRef.getDownloadURL();
-				setImagesURL((previousImage) => previousImage.concat(firstImageUrl));
-
-				//second references
-				const secondImageRef = fireStorage.ref(images[1].name);
-				const uploadSecondImage = await secondImageRef.put(images[1]);
-
-				const secondImageUrl = await secondImageRef.getDownloadURL();
-
-				setImagesURL((previousImages) => previousImages.concat(secondImageUrl));
-
-				//third references
-				const thirdImageRef = fireStorage.ref(images[2].name);
-				const uploadThirdImage = await thirdImageRef.put(images[2]);
-
-				const thirdImageUrl = await thirdImageRef.getDownloadURL();
-				setImagesURL((previousPreviewImages) =>
-					previousPreviewImages.concat(thirdImageUrl)
-				);
-
-				const res = await axios.post("/api/projects", payload);
-
-				if (res.status === 200) {
-					showAlert({
-						title: "Success!",
-						message: "Project Saved successfully into database",
-						version: "success",
-					});
-
+			axios
+				.post("/api/projects", {
+					title,
+					description,
+					category,
+					functionalities,
+					frameworks,
+					previewImages: imagesURL,
+					previewLink: previewUrl,
+				})
+				.then((res) => {
 					setPublishing(false);
-				} else {
-					showAlert({
-						title: "Error!",
-						message: "Something went wrong while saving the project",
-						version: "danger",
-					});
+
+					console.log("Successfully saved the project");
+				})
+				.catch((error) => {
 					setPublishing(false);
-				}
-			} catch (error) {
-				setPublishing(false);
-				showAlert({
-					title: "Error!",
-					message: error.message,
-					version: "danger",
+					console.log(error.message);
 				});
-			}
 		}
 	}
 
@@ -219,9 +181,9 @@ function AddProject() {
 								<button
 									type="button"
 									onClick={(event) => {
-										setImages([]);
 										setImagesURL([]);
 										setPreviewImages([]);
+										setUploadingImages(false);
 									}}
 									className="btn btn-sm btn-dark remove-image-button"
 								>
@@ -267,7 +229,7 @@ function AddProject() {
 													if (selectedFiles.length < 3) {
 														showAlert({
 															title: "Error!",
-															message: "Minimum 3 images are reacquired",
+															message: "Minimum 3 images are required",
 															version: "danger",
 														});
 													} else if (selectedFiles.length > 3) {
@@ -304,6 +266,8 @@ function AddProject() {
 															version: "danger",
 														});
 													} else {
+														setUploadingImages(true);
+
 														const filesArray = Array.from(
 															event.target.files
 														).map((file) => URL.createObjectURL(file));
@@ -315,7 +279,89 @@ function AddProject() {
 															(file) => URL.revokeObjectURL(file) // avoid memory leak
 														);
 
-														setImages(selectedFiles);
+														//first image references
+														const firstImagestorageRef = fireStorage.ref(
+															selectedFiles[0].name
+														);
+
+														firstImagestorageRef.put(selectedFiles[0]).on(
+															"state_changed",
+															(snap) => {
+																let percentage = Math.floor(
+																	(snap.bytesTransferred / snap.totalBytes) *
+																		100
+																);
+																setUploadingImagesSnap(
+																	`First Image ${percentage} %`
+																);
+															},
+															(error) => {
+																console.log(error);
+															},
+															async () => {
+																const url = await firstImagestorageRef.getDownloadURL();
+																setImagesURL((previousImage) => {
+																	return [...previousImage, url];
+																});
+															}
+														);
+
+														//second image ref
+														const secondImagestorageRef = fireStorage.ref(
+															selectedFiles[1].name
+														);
+
+														secondImagestorageRef.put(selectedFiles[1]).on(
+															"state_changed",
+															(snap) => {
+																let percentage = Math.floor(
+																	(snap.bytesTransferred / snap.totalBytes) *
+																		100
+																);
+																setUploadingImagesSnap(
+																	`Second Image ${percentage} %`
+																);
+															},
+															(error) => {
+																console.log(error);
+															},
+															async () => {
+																const url = await secondImagestorageRef.getDownloadURL();
+																setImagesURL((previousImages) => {
+																	return [...previousImages, url];
+																});
+															}
+														);
+
+														//third image ref
+														const thirdImagestorageRef = fireStorage.ref(
+															selectedFiles[2].name
+														);
+
+														thirdImagestorageRef.put(selectedFiles[2]).on(
+															"state_changed",
+															(snap) => {
+																let percentage = Math.floor(
+																	(snap.bytesTransferred / snap.totalBytes) *
+																		100
+																);
+																setUploadingImagesSnap(
+																	`Third Image ${percentage} %`
+																);
+															},
+															(error) => {
+																console.log(error);
+															},
+															async () => {
+																await thirdImagestorageRef
+																	.getDownloadURL()
+																	.then((url) => {
+																		setImagesURL((previoustwoImages) => {
+																			return [...previoustwoImages, url];
+																		});
+																	});
+															}
+														);
 													}
 												}
 											}}
@@ -324,26 +370,48 @@ function AddProject() {
 											className="custom-project-image-input"
 											multiple
 										/>
-										<label
-											htmlFor="project-image-selector-input"
-											className="custom-project-image-label"
-										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="16"
-												height="16"
-												fill="currentColor"
-												className="bi bi-camera-fill"
-												viewBox="0 0 16 16"
+
+										{uploadingImages ? (
+											<div className="image-upload">
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="16"
+													height="16"
+													fill="currentColor"
+													className="bi bi-cloud-check-fill"
+													viewBox="0 0 16 16"
+												>
+													<path
+														fillRule="evenodd"
+														d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 4.854a.5.5 0 0 0-.708-.708L7 8.793 5.854 7.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"
+													/>
+												</svg>{" "}
+												{imagesURL.length === 3
+													? "Images Uploaded"
+													: uploadingImagesSnap}
+											</div>
+										) : (
+											<label
+												htmlFor="project-image-selector-input"
+												className="custom-project-image-label"
 											>
-												<path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-												<path
-													fillRule="evenodd"
-													d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"
-												/>
-											</svg>{" "}
-											Choose Image
-										</label>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="16"
+													height="16"
+													fill="currentColor"
+													className="bi bi-camera-fill"
+													viewBox="0 0 16 16"
+												>
+													<path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+													<path
+														fillRule="evenodd"
+														d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"
+													/>
+												</svg>{" "}
+												Choose Image
+											</label>
+										)}
 									</div>
 									<div className="col-lg-4 col-12 p-2">
 										<div className="row">
@@ -388,7 +456,7 @@ function AddProject() {
 										</div>
 									</div>
 								</div>
-								<div className="row mt-2">
+								<div className="row">
 									<div className="col-lg-8 col-12 p-1">
 										<textarea
 											required

@@ -111,22 +111,26 @@ nav {
 	display: none;
 }
 .custom-project-image-label {
-	background-color: black;
+	background-color: #208db2;
 	color: white;
 	border-radius: 10px;
 	padding: 10px;
 	position: relative;
 	bottom: 45px;
 }
-.uploaded {
+.image-upload {
 	width: fit-content;
 	height: fit-content;
-	background-color: green;
+	background-color: #3db39e;
 	color: white;
 	border-radius: 10px;
 	padding: 10px;
 	position: relative;
 	bottom: 45px;
+}
+
+.project-image {
+	margin-top: -30px;
 }
 
 .project-image1-div {
