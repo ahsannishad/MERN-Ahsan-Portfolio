@@ -558,7 +558,7 @@ function AddProject() {
 														});
 													}}
 													type="button"
-													className="btn btn-warning"
+													className="btn btn-success"
 													id="button-addon2"
 												>
 													Add
@@ -571,7 +571,7 @@ function AddProject() {
 												frameworks.map((framework, index) => {
 													return (
 														<span
-															className="badge badge-warning m-2 p-2"
+															className="badge badge-success m-2 p-2"
 															key={index}
 														>
 															{framework}

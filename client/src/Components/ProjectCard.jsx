@@ -14,13 +14,13 @@ function ProjectCard(props) {
 						{props.title}
 					</h4>
 					<div className="project-badge text-center">
-						<span className="badge project-card-badge badge-warning m-2">
+						<span className="badge project-card-badge badge-success m-2">
 							{props.badge1}
 						</span>
-						<span className="badge project-card-badge badge-warning m-2">
+						<span className="badge project-card-badge badge-success m-2">
 							{props.badge2}
 						</span>
-						<span className="badge project-card-badge badge-warning m-2">
+						<span className="badge project-card-badge badge-success m-2">
 							{props.badge3}
 						</span>
 					</div>

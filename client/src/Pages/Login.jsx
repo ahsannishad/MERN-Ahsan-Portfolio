@@ -9,15 +9,10 @@ function Login(props) {
 	// } else {
 	return (
 		<div className="text-center mt-5">
-			<form className="form-signin mt-5">
-				<img
-					className="mb-4 mt-5"
-					src="../assets/brand/bootstrap-solid.svg"
-					alt=""
-					width="72"
-					height="72"
-				/>
-				<h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+			<form className="form-signin mt-5 pt-5">
+				<h1 className="h3 mb-3 font-weight-normal mt-5 mb-2 pt-5">
+					Please sign in
+				</h1>
 				<label htmlFor="inputEmail" className="sr-only">
 					Email address
 				</label>

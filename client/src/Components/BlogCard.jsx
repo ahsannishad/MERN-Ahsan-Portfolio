@@ -14,13 +14,13 @@ function BlogCard(props) {
 					{props.title}
 				</h4>
 				<div className="blog-badge text-center">
-					<span className="badge blog-card-badge badge-light m-2">
+					<span className="badge blog-card-badge badge-primary m-2">
 						{props.badge1}
 					</span>
-					<span className="badge blog-card-badge badge-light m-2">
+					<span className="badge blog-card-badge badge-primary m-2">
 						{props.badge2}
 					</span>
-					<span className="badge blog-card-badge badge-light m-2">
+					<span className="badge blog-card-badge badge-primary m-2">
 						{props.badge3}
 					</span>
 				</div>
