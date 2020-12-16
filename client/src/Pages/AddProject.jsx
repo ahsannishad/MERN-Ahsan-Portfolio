@@ -19,7 +19,7 @@ function AddProject() {
 	const [functionality, setFunctionality] = useState("");
 	const [frameworks, setFrameworks] = useState([]);
 	const [framework, setFramework] = useState("");
-	const imageTypes = ["image/png", "image/jpeg", "image/jpg"];
+	const imageTypes = ["image/png", "image/jpeg", "image/jpg", "image/gif"];
 
 	const [publishing, setPublishing] = useState(false);
 	const [previewImages, setPreviewImages] = useState([]);
@@ -66,12 +66,19 @@ function AddProject() {
 				})
 				.then((res) => {
 					setPublishing(false);
-
-					console.log("Successfully saved the project");
+					showAlert({
+						title: "Success!",
+						message: "Successfully saved the project",
+						version: "success",
+					});
 				})
 				.catch((error) => {
 					setPublishing(false);
-					console.log(error.message);
+					showAlert({
+						title: "Error!",
+						message: error.message,
+						version: "danger",
+					});
 				});
 		}
 	}

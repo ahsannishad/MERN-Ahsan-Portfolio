@@ -106,7 +106,7 @@ function SideBar() {
 						<NavLink
 							activeClassName="active-nav"
 							className="nav-link"
-							to="/add-blog"
+							to="/write-blog"
 						>
 							<svg
 								width="1em"
@@ -122,14 +122,14 @@ function SideBar() {
 									d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
 								/>
 							</svg>{" "}
-							Add Blog
+							Write Blog
 						</NavLink>
 					</li>
 					<li className="nav-item">
 						<NavLink
 							activeClassName="active-nav"
 							className="nav-link"
-							to="messages"
+							to="manage-messages"
 						>
 							<svg
 								width="1em"
@@ -150,7 +150,7 @@ function SideBar() {
 				</ul>
 
 				<h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-					<span>Saved Pages</span>
+					<span>Quick Pages</span>
 				</h6>
 				<ul className="nav flex-column mb-2">
 					<li className="nav-item">

@@ -12,6 +12,11 @@ import Dashboard from "./Pages/Dashboard";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import ProjectDetails from "./Pages/ProjectDetails";
 import AddProject from "./Pages/AddProject";
+import ManageProjects from "./Pages/ManageProjects";
+import ManageBlogs from "./Pages/ManageBlogs";
+import WriteBlog from "./Pages/WriteBlog";
+import ManageMessages from "./Pages/ManageMessages";
+import NotFound from "./Pages/NotFound";
 
 function App() {
 	const [user, setUser] = useState(false);
@@ -49,6 +54,11 @@ function App() {
 					</Route>
 					<Route exact path="/dashboard" component={Dashboard} />
 					<Route exact path="/add-project" component={AddProject} />
+					<Route exact path="/manage-projects" component={ManageProjects} />
+					<Route exact path="/manage-blogs" component={ManageBlogs} />
+					<Route exact path="/write-blog" component={WriteBlog} />
+					<Route exact path="/manage-messages" component={ManageMessages} />
+					<Route component={NotFound} />
 				</Switch>
 			</Router>
 		</Fragment>
