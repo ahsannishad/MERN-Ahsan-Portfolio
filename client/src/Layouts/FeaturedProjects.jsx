@@ -20,7 +20,7 @@ function FeaturedProjects() {
 		return () => {
 			isMounted = false;
 		};
-	}, [data]);
+	}, []);
 
 	return (
 		<div className="featured-projects pb-5">

@@ -19,7 +19,7 @@ function Projects() {
 		return () => {
 			isMounted = false;
 		};
-	}, [data]);
+	}, []);
 	return (
 		<div className="container mt-5 mb-5">
 			<div className="row">
