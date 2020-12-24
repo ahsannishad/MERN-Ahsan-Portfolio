@@ -30,7 +30,7 @@ mongoose
 	.connect(process.env.MONGODB_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
-		useFindAndModify: true,
+		useFindAndModify: false,
 	})
 	.then((res) => {
 		console.log("Database connected");
@@ -112,36 +112,43 @@ app.route("/api/user/login").post((req, res) => {
 });
 
 //Project Schema
-const projectSchema = new mongoose.Schema({
-	title: {
-		type: String,
-		required: true,
+const projectSchema = new mongoose.Schema(
+	{
+		title: {
+			type: String,
+			required: true,
+		},
+		category: {
+			type: String,
+			required: true,
+		},
+		description: {
+			type: String,
+			required: true,
+		},
+		previewImages: {
+			type: Array,
+			required: true,
+		},
+		imagesRefer: {
+			type: Array,
+			required: true,
+		},
+		frameworks: {
+			type: Array,
+			required: true,
+		},
+		functionalities: {
+			type: Array,
+			required: true,
+		},
+		previewLink: {
+			type: String,
+			required: true,
+		},
 	},
-	category: {
-		type: String,
-		required: true,
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-	previewImages: {
-		type: Array,
-		required: true,
-	},
-	frameworks: {
-		type: Array,
-		required: true,
-	},
-	functionalities: {
-		type: Array,
-		required: true,
-	},
-	previewLink: {
-		type: String,
-		required: true,
-	},
-});
+	{ timestamps: true }
+);
 
 const Projects = new mongoose.model("Projects", projectSchema);
 
@@ -151,7 +158,7 @@ app
 	.get((req, res) => {
 		Projects.find({}, (error, projects) => {
 			if (error) {
-				res.status(500).send("Something went wron while getting projects");
+				res.status(500).send("Something went wrong while getting projects");
 			} else {
 				res.send(projects);
 			}
@@ -163,6 +170,7 @@ app
 			category: req.body.category,
 			description: req.body.description,
 			previewImages: req.body.previewImages,
+			imagesRefer: req.body.imagesRefer,
 			frameworks: req.body.frameworks,
 			functionalities: req.body.functionalities,
 			previewLink: req.body.previewLink,
@@ -186,6 +194,22 @@ app
 		});
 	});
 
+//Featured project
+
+app.get("/api/featuredprojects", (req, res) => {
+	Projects.find({})
+		.sort({})
+		.limit(3)
+		.then((projects) => {
+			res.send(projects);
+		})
+		.catch((error) => {
+			res
+				.status(500)
+				.send("something went wrong while getting featured project");
+		});
+});
+
 //individual project
 app
 	.route("/api/projects/:id")
@@ -208,6 +232,7 @@ app
 				category: req.body.category,
 				description: req.body.description,
 				previewImages: req.body.previewImages,
+				imagesRefer: req.body.imagesRefer,
 				frameworks: req.body.frameworks,
 				functionalities: req.body.functionalities,
 				previewLink: req.body.previewLink,
@@ -232,6 +257,72 @@ app
 			}
 		});
 	});
+
+//....................................Messages........................................//
+const messagesSchema = new mongoose.Schema(
+	{
+		name: {
+			type: String,
+			required: true,
+		},
+		email: {
+			type: String,
+			required: true,
+		},
+		message: {
+			type: String,
+			required: true,
+		},
+	},
+	{ timestamps: true }
+);
+
+const Messages = new mongoose.model("Messages", messagesSchema);
+
+app
+	.route("/api/messages")
+
+	.post((req, res) => {
+		const message = new Messages({
+			name: req.body.name,
+			email: req.body.email,
+			message: req.body.message,
+		});
+
+		message.save((error, success) => {
+			if (error) {
+				res.status(500).send("Internal server error while saving the message");
+			} else {
+				res.send("Message Sent!");
+			}
+		});
+	})
+	.get((req, res) => {
+		Messages.find({})
+			.then((messages) => {
+				res.send(messages);
+			})
+			.catch((error) => {
+				res.status(500).send("Something went wrong while getting Messages");
+			});
+	})
+	.delete((req, res) => {
+		Messages.deleteMany({}).then((deleted) => {
+			res.send("Successfully deleted all messages");
+		});
+	});
+
+//delete individual message
+app.delete("/api/messages/:id", (req, res) => {
+	Messages.findByIdAndDelete({ _id: req.params.id })
+		.then((deleted) => {
+			res.send("successfully deleted the message");
+		})
+		.catch((error) => {
+			res.status(500).send("Something went wrong while deleting the project");
+		});
+});
+
 //..................................Production Setup.......................................//
 
 // Production

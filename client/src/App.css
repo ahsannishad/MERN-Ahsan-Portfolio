@@ -7,9 +7,10 @@ nav {
 	width: 200px;
 }
 
-.contact-social-icon {
-	margin: 5px;
-	font-size: 2rem;
+.contact-form {
+	border: #96a2b2 1px solid;
+	padding: 30px;
+	border-radius: 5px;
 }
 
 /*
@@ -35,10 +36,7 @@ nav {
 
 /* side Bar Design starts */
 .bi {
-	width: 16px;
-	height: 16px;
 	margin-bottom: 1.5px;
-	vertical-align: text-bottom;
 }
 .segment {
 	padding-top: 100px;
@@ -96,10 +94,22 @@ nav {
 		height: 100%;
 	}
 
+	.project-preview-title {
+		text-align: center;
+	}
+	.project-category-and-date {
+		text-align: center;
+	}
+	.project-category-date {
+		align-content: center;
+	}
 	.project-preview-description {
 		text-align: center;
 	}
 	.project-preview-functionality-title {
+		text-align: center;
+	}
+	.project-preview-frameworks-title {
 		text-align: center;
 	}
 	.functionality-badge {
@@ -112,8 +122,20 @@ nav {
 	.footer-about {
 		text-align: center;
 	}
+
+	.public-logout-btn {
+		display: none;
+	}
 }
 
+.add-project-input {
+	background-color: #f9fcfb;
+	border-radius: 10px;
+	height: 50px;
+}
+.add-btn {
+	border-radius: 10px;
+}
 .remove-image-button {
 	border-radius: 100%;
 	position: relative;
@@ -147,20 +169,27 @@ nav {
 	margin-top: -30px;
 }
 
+.project-image-selector {
+	margin-bottom: -47px;
+}
+
 .project-image1-div {
-	background-color: #eef1fa;
+	background-color: #f9fcfb;
+	border: #eceaec 1px solid;
 	min-height: fit-content;
 	color: white;
 	border-radius: 20px;
 }
 .project-image2-div {
-	background-color: #eef1fa;
+	background-color: #f9fcfb;
+	border: #eceaec 1px solid;
 	min-height: fit-content;
 	color: white;
 	border-radius: 20px;
 }
 .project-image3-div {
-	background-color: #eef1fa;
+	background-color: #f9fcfb;
+	border: #eceaec 1px solid;
 	min-height: fit-content;
 	color: white;
 	border-radius: 20px;
@@ -189,6 +218,7 @@ nav {
 }
 .project-card-badge {
 	padding: 5px;
+	background-color: #dae2ec;
 }
 
 .blog-card-thumbnail {
@@ -214,11 +244,12 @@ nav {
 }
 
 .project-category {
-	max-width: fit-content;
+	margin: 10px;
 }
 .project-date {
-	max-width: fit-content;
+	margin: 10px;
 }
+
 /* Home Page design ends */
 
 .project-preview-image {
@@ -229,6 +260,12 @@ nav {
 	width: fit-content;
 }
 
+.project-details-card {
+	border-radius: 20px;
+}
+.project-preview-button {
+	border-radius: 10px;
+}
 /*
  * Sidebar
  */
@@ -377,8 +414,8 @@ nav {
 	font-size: 13px;
 }
 .social-icons a {
-	background-color: #eceeef;
-	color: #eceeef;
+	background-color: #212529;
+	color: white;
 	font-size: 16px;
 	display: inline-block;
 	line-height: 44px;
@@ -424,3 +461,23 @@ nav {
 }
 
 /*Footer design ends*/
+
+/* Manage Project style*/
+.manage-project-card {
+	border-radius: 10px;
+}
+
+.manage-project-card-link {
+	color: #343a40;
+}
+.manage-project-card-link:hover {
+	text-decoration: none;
+	color: #343a40;
+}
+
+/* Manage Project style*/
+
+/*Dashboard */
+.dashboard-card {
+	border-radius: 10px;
+}

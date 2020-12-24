@@ -1,38 +1,47 @@
-import React from "react";
-import Heading from "../Components/Heading";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import ProjectCard from "../Components/ProjectCard";
-import Thumbnail1 from "./../Assets/Images/Image4.webp";
-import Thumbnail2 from "./../Assets/Images/Image2.jpg";
-import Thumbnail3 from "./../Assets/Images/Image7.webp";
+import Heading from "../Components/Heading";
 function FeaturedProjects() {
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		let isMounted = true;
+		axios
+			.get("/api/featuredprojects")
+			.then((res) => {
+				if (isMounted) {
+					setData(res.data);
+				}
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
+		return () => {
+			isMounted = false;
+		};
+	}, [data]);
+
 	return (
 		<div className="featured-projects pb-5">
 			<div className="container">
 				<div className="heading-title p-5">
 					<Heading Heading="Featured Projects" textAlign="center" />
 				</div>
-				<div className="card-deck mb-4 m-3">
-					<ProjectCard
-						thumbnail={Thumbnail1}
-						title="Example Project Title"
-						badge1="React JS"
-						badge2="Node JS"
-						badge3="Mongo DB"
-					/>
-					<ProjectCard
-						thumbnail={Thumbnail2}
-						title="Example Project Title"
-						badge1="React JS"
-						badge2="Node JS"
-						badge3="Mongo DB"
-					/>
-					<ProjectCard
-						thumbnail={Thumbnail3}
-						title="Example Project Title"
-						badge1="React JS"
-						badge2="Node JS"
-						badge3="Mongo DB"
-					/>
+				<div className="row">
+					{data.map((project) => {
+						return (
+							<ProjectCard
+								key={project._id}
+								link={`/projects/${project._id}`}
+								thumbnail={project.previewImages[0]}
+								title={project.title.substring(0, 50) + "..."}
+								badge1={project.frameworks[0]}
+								badge2={project.frameworks[1]}
+								badge3={project.frameworks[2]}
+							/>
+						);
+					})}
 				</div>
 			</div>
 		</div>

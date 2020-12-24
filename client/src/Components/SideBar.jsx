@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+
 function SideBar() {
+	const [messagesLength, setMessagesLength] = useState("");
+
+	useEffect(() => {
+		let isMounted = true;
+		axios
+			.get("/api/messages")
+			.then((res) => {
+				if (isMounted) {
+					setMessagesLength(res.data.length);
+				}
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 	return (
 		<nav
 			id="sidebarMenu"
@@ -15,16 +35,20 @@ function SideBar() {
 							to="/dashboard"
 						>
 							<svg
-								width="1em"
-								height="1em"
-								viewBox="0 0 16 16"
-								className="bi bi-columns-gap"
-								fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								className="bi bi-house"
+								viewBox="0 0 16 16"
 							>
 								<path
 									fillRule="evenodd"
-									d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"
+									d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"
+								/>
+								<path
+									fillRule="evenodd"
+									d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"
 								/>
 							</svg>{" "}
 							Dashboard
@@ -37,18 +61,15 @@ function SideBar() {
 							to="/manage-projects"
 						>
 							<svg
-								width="1em"
-								height="1em"
-								viewBox="0 0 16 16"
-								className="bi bi-folder"
-								fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								className="bi bi-folder-check"
+								viewBox="0 0 16 16"
 							>
-								<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
-								<path
-									fillRule="evenodd"
-									d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z"
-								/>
+								<path d="M.5 3l.04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z" />
+								<path d="M15.854 10.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708l1.146 1.147 2.646-2.647a.5.5 0 0 1 .708 0z" />
 							</svg>{" "}
 							Projects
 						</NavLink>
@@ -60,26 +81,20 @@ function SideBar() {
 							to="add-project"
 						>
 							<svg
-								width="1em"
-								height="1em"
-								viewBox="0 0 16 16"
-								className="bi bi-folder-plus"
-								fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								className="bi bi-folder-plus"
+								viewBox="0 0 16 16"
 							>
-								<path
-									fillRule="evenodd"
-									d="M9.828 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91H9v1H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181L15.546 8H14.54l.265-2.91A1 1 0 0 0 13.81 4H9.828zm-2.95-1.707L7.587 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672a1 1 0 0 1 .707.293z"
-								/>
-								<path
-									fillRule="evenodd"
-									d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"
-								/>
+								<path d="M.5 3l.04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z" />
+								<path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z" />
 							</svg>{" "}
 							Add Project
 						</NavLink>
 					</li>
-					<li className="nav-item">
+					{/* <li className="nav-item">
 						<NavLink
 							activeClassName="active-nav"
 							className="nav-link"
@@ -124,7 +139,7 @@ function SideBar() {
 							</svg>{" "}
 							Write Blog
 						</NavLink>
-					</li>
+					</li> */}
 					<li className="nav-item">
 						<NavLink
 							activeClassName="active-nav"
@@ -132,19 +147,19 @@ function SideBar() {
 							to="manage-messages"
 						>
 							<svg
-								width="1em"
-								height="1em"
-								viewBox="0 0 16 16"
-								className="bi bi-envelope"
-								fill="currentColor"
 								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								className="bi bi-chat-right"
+								viewBox="0 0 16 16"
 							>
-								<path
-									fillRule="evenodd"
-									d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"
-								/>
+								<path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z" />
 							</svg>{" "}
-							Messages
+							Messages{" "}
+							{messagesLength && (
+								<span className="badge badge-primary">{messagesLength}</span>
+							)}
 						</NavLink>
 					</li>
 				</ul>

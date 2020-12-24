@@ -59,9 +59,9 @@ function Navbar() {
 							</NavLink>
 						</li>
 					</ul>
-					<ul className="navbar-nav ml-auto">
+					<ul className="navbar-nav ml-auto public-logout-btn">
 						<li className="nav-item">
-							<button type="button" className="btn btn-outline-dark btn-sm">
+							<button type="button" className="btn btn-dark btn-sm">
 								Logout
 							</button>
 						</li>

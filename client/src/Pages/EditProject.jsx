@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AdminHeader from "../Components/AdminHeader";
 import SideBar from "../Components/SideBar";
 import { fireStorage } from "./../Firebase/config";
@@ -9,7 +10,7 @@ import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
 import Imageplaceholder from "./../Assets/Images/picture1.svg";
 
-function AddProject() {
+function EditProject() {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [category, setCategory] = useState("");
@@ -19,7 +20,7 @@ function AddProject() {
 	const [functionality, setFunctionality] = useState("");
 	const [frameworks, setFrameworks] = useState([]);
 	const [framework, setFramework] = useState("");
-	const [deleteImages, setDeleteImages] = useState([]);
+
 	const [imagesRefer, setImagesRefer] = useState([]);
 	const imageTypes = ["image/png", "image/jpeg", "image/jpg", "image/gif"];
 
@@ -29,6 +30,7 @@ function AddProject() {
 	const [uploadingImagesSnap, setUploadingImagesSnap] = useState(
 		"Uploading Images"
 	);
+	const { id } = useParams();
 
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -57,7 +59,7 @@ function AddProject() {
 			});
 		} else {
 			axios
-				.post("/api/projects", {
+				.put(`/api/projects/${id}`, {
 					title,
 					description,
 					category,
@@ -71,7 +73,7 @@ function AddProject() {
 					setPublishing(false);
 					showAlert({
 						title: "Success!",
-						message: "Successfully saved the project",
+						message: "Successfully Saved the project",
 						version: "success",
 					});
 				})
@@ -102,6 +104,25 @@ function AddProject() {
 		});
 	}
 
+	useEffect(() => {
+		let isMounted = true;
+		axios.get(`/api/projects/${id}`).then((res) => {
+			if (isMounted) {
+				setTitle(res.data[0].title);
+				setCategory(res.data[0].category);
+				setDescription(res.data[0].description);
+				setPreviewUrl(res.data[0].previewLink);
+				setFrameworks(res.data[0].frameworks);
+				setFunctionalities(res.data[0].functionalities);
+				setPreviewImages(res.data[0].previewImages);
+				setImagesURL(res.data[0].previewImages);
+			}
+		});
+		return () => {
+			isMounted = false;
+		};
+	}, [id]);
+
 	return (
 		<Fragment>
 			<ReactNotification />
@@ -122,7 +143,7 @@ function AddProject() {
 											className="btn btn-sm btn-dark"
 											disabled
 										>
-											Publishing{" "}
+											Saving{" "}
 											<div
 												className="spinner-border spinner-border-sm text-light"
 												role="status"
@@ -147,7 +168,7 @@ function AddProject() {
 												/>
 												<path d="M8.616 10.24l3.182-1.969a.443.443 0 0 0 0-.742l-3.182-1.97c-.27-.166-.616.036-.616.372V6.7c-.857 0-3.429 0-4 4.8 1.429-2.7 4-2.4 4-2.4v.769c0 .336.346.538.616.371z" />
 											</svg>{" "}
-											Publish
+											Save
 										</button>
 									)}
 								</div>
@@ -192,76 +213,9 @@ function AddProject() {
 								<button
 									type="button"
 									onClick={(event) => {
-										//first image references
-										const firstImagestorageRef = fireStorage.ref(
-											deleteImages[0].name
-										);
-										firstImagestorageRef
-											.delete()
-											.then(function () {
-												showAlert({
-													title: "Success",
-													message:
-														"Successfully removed First image from Storage",
-													version: "success",
-												});
-											})
-											.catch(function (error) {
-												showAlert({
-													title: "Error!",
-													message:
-														"Something went wrong while deleting First Image",
-													version: "danger",
-												});
-											});
-
-										const secondImagestorageRef = fireStorage.ref(
-											deleteImages[1].name
-										);
-										secondImagestorageRef
-											.delete()
-											.then(function () {
-												showAlert({
-													title: "Success",
-													message:
-														"Successfully removed Second image from Storage",
-													version: "success",
-												});
-											})
-											.catch(function (error) {
-												showAlert({
-													title: "Error!",
-													message:
-														"Something went wrong while deleting Second Image",
-													version: "danger",
-												});
-											});
-
-										const thirdImagestorageRef = fireStorage.ref(
-											deleteImages[2].name
-										);
-										thirdImagestorageRef
-											.delete()
-											.then(function () {
-												showAlert({
-													title: "Success",
-													message:
-														"Successfully removed Third image from Storage",
-													version: "success",
-												});
-											})
-											.catch(function (error) {
-												showAlert({
-													title: "Error!",
-													message:
-														"Something went wrong while deleting Third Image",
-													version: "danger",
-												});
-											});
-
 										setImagesURL([]);
-										setImagesRefer([]);
 										setPreviewImages([]);
+										setImagesRefer([]);
 										setUploadingImages(false);
 									}}
 									className="btn btn-sm btn-dark remove-image-button"
@@ -345,7 +299,6 @@ function AddProject() {
 															version: "danger",
 														});
 													} else {
-														setDeleteImages(selectedFiles);
 														setUploadingImages(true);
 
 														const filesArray = Array.from(
@@ -671,4 +624,4 @@ function AddProject() {
 	);
 }
 
-export default AddProject;
+export default EditProject;
