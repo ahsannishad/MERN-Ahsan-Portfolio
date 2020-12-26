@@ -2,8 +2,8 @@ import React from "react";
 
 function Footer() {
 	return (
-		<footer className="site-footer">
-			<div className="container">
+		<footer className="site-footer footer">
+			<div className="container mt-auto">
 				<div className="row">
 					<div className="col-sm-12 col-md-6">
 						<h6 className="copyright-text">About</h6>

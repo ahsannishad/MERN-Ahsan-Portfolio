@@ -87,6 +87,15 @@ app
 		});
 	});
 
+//check authentication
+app.get("/api/user/authenticated", (req, res) => {
+	if (req.isAuthenticated()) {
+		res.send(true);
+	} else {
+		res.send(false);
+	}
+});
+
 //Login Route
 app.route("/api/user/login").post((req, res) => {
 	const user = new User({
@@ -101,14 +110,20 @@ app.route("/api/user/login").post((req, res) => {
 			passport.authenticate("local")(req, res, () => {
 				User.find({ username: user.username }, function (error, user) {
 					if (error) {
-						res.send(error);
+						res.send(false);
 					} else {
-						res.send(user);
+						res.send(true);
 					}
 				});
 			});
 		}
 	});
+});
+
+//logout
+app.post("/api/user/logout", (req, res) => {
+	req.logout();
+	res.send("User logged out successfully");
 });
 
 //Project Schema

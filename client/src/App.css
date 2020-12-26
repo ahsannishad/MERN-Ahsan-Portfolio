@@ -1,6 +1,10 @@
 nav {
 	z-index: 2;
 }
+.loader {
+	margin-top: 200px;
+	margin-bottom: 200px;
+}
 
 .avatar {
 	border-radius: 100%;
@@ -457,6 +461,9 @@ nav {
 		display: block;
 		margin-right: 0;
 		font-weight: 600;
+	}
+	.signout-button {
+		display: none;
 	}
 }
 

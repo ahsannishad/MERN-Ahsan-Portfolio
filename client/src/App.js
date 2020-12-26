@@ -1,5 +1,5 @@
 import "./App.css";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./Assets/Images/ahsan-logo.png";
 import Header from "./Components/Header";
@@ -18,47 +18,84 @@ import WriteBlog from "./Pages/WriteBlog";
 import ManageMessages from "./Pages/ManageMessages";
 import NotFound from "./Pages/NotFound";
 import EditProject from "./Pages/EditProject";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import Axios from "axios";
+import { userContext } from "./Components/userContext";
 
 function App() {
+	const [user, setUser] = useState(false);
+
+	useEffect(() => {
+		let isMounted = true;
+		Axios.get("/api/user/authenticated").then((res) => {
+			if (isMounted) {
+				setUser(res.data);
+			}
+		});
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
+
 	return (
 		<Fragment>
 			<Router>
 				<Switch>
-					<Route exact path="/">
-						<Header />
-						<Home />
-						<Footer />
-					</Route>
-					<Route exact path="/projects">
-						<Header />
-						<Projects />
-						<Footer />
-					</Route>
-					<Route exact path="/projects/:projectid">
-						<Header />
-						<ProjectDetails />
-						<Footer />
-					</Route>
-					<Route exact path="/blogs">
-						<Header />
-						<Blogs />
-						<Footer />
-					</Route>
-					<Route exact path="/contact">
-						<Header />
-						<Contact />
-						<Footer />
-					</Route>
-					<Route exact path="/admin">
-						<Login />
-					</Route>
-					<Route exact path="/dashboard" component={Dashboard} />
-					<Route exact path="/add-project" component={AddProject} />
-					<Route exact path="/manage-projects" component={ManageProjects} />
-					<Route exact path="/projects/edit/:id" component={EditProject} />
-					<Route exact path="/manage-blogs" component={ManageBlogs} />
-					<Route exact path="/write-blog" component={WriteBlog} />
-					<Route exact path="/manage-messages" component={ManageMessages} />
+					<userContext.Provider value={{ user, setUser }}>
+						<Route exact path="/">
+							<Header />
+							<Home />
+							<Footer />
+						</Route>
+						<Route exact path="/projects">
+							<Header />
+							<Projects />
+							<Footer />
+						</Route>
+						<Route exact path="/projects/:projectid">
+							<Header />
+							<ProjectDetails />
+							<Footer />
+						</Route>
+						<Route exact path="/blogs">
+							<Header />
+							<Blogs />
+							<Footer />
+						</Route>
+
+						<Route exact path="/contact">
+							<Header />
+							<Contact />
+							<Footer />
+						</Route>
+						<Route exact path="/admin" component={Login} />
+
+						<ProtectedRoute exact path="/dashboard" component={Dashboard} />
+						<ProtectedRoute exact path="/add-project" component={AddProject} />
+						<ProtectedRoute
+							exact
+							path="/manage-projects"
+							component={ManageProjects}
+						/>
+						<ProtectedRoute
+							exact
+							path="/projects/edit/:id"
+							component={EditProject}
+						/>
+						<ProtectedRoute
+							exact
+							path="/manage-blogs"
+							component={ManageBlogs}
+						/>
+						<ProtectedRoute exact path="/write-blog" component={WriteBlog} />
+						<ProtectedRoute
+							exact
+							path="/manage-messages"
+							component={ManageMessages}
+						/>
+					</userContext.Provider>
+
 					<Route component={NotFound} />
 				</Switch>
 			</Router>

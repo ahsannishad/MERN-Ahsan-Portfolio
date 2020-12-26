@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import ProjectCard from "../Components/ProjectCard";
 import Axios from "axios";
 
 function Projects() {
 	const [data, setData] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		setLoading(true);
 		let isMounted = true;
 		Axios.get("/api/projects")
 			.then((res) => {
 				if (isMounted) {
+					setLoading(false);
 					setData(res.data);
 				}
 			})
 			.catch((error) => {
+				setLoading(false);
 				console.log(error.message);
 			});
 		return () => {
@@ -21,23 +25,33 @@ function Projects() {
 		};
 	}, []);
 	return (
-		<div className="container mt-5 mb-5">
-			<div className="row">
-				{data.map((project) => {
-					return (
-						<ProjectCard
-							key={project._id}
-							link={`/projects/${project._id}`}
-							thumbnail={project.previewImages[0]}
-							title={project.title.substring(0, 50) + "..."}
-							badge1={project.frameworks[0]}
-							badge2={project.frameworks[1]}
-							badge3={project.frameworks[2]}
-						/>
-					);
-				})}
-			</div>
-		</div>
+		<Fragment>
+			{loading ? (
+				<div className="text-center loader">
+					<div className="spinner-grow" role="status">
+						<span className="sr-only">Loading...</span>
+					</div>
+				</div>
+			) : (
+				<div className="container mt-5 mb-5">
+					<div className="row">
+						{data.map((project) => {
+							return (
+								<ProjectCard
+									key={project._id}
+									link={`/projects/${project._id}`}
+									thumbnail={project.previewImages[0]}
+									title={project.title.substring(0, 50) + "..."}
+									badge1={project.frameworks[0]}
+									badge2={project.frameworks[1]}
+									badge3={project.frameworks[2]}
+								/>
+							);
+						})}
+					</div>
+				</div>
+			)}
+		</Fragment>
 	);
 }
 
