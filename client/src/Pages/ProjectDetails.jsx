@@ -95,7 +95,7 @@ function ProjectDetails() {
 										alt="project slide show"
 									/>
 								</div>
-								<div className="col-lg-4 col-12">
+								<div className="col-lg-4 col-12 p-2">
 									<div className="row">
 										<div className="col-lg-12 col-6 mb-3">
 											<img
