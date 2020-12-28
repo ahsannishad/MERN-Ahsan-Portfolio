@@ -41,8 +41,8 @@ function App() {
 	return (
 		<Fragment>
 			<Router>
-				<Switch>
-					<userContext.Provider value={{ user, setUser }}>
+				<userContext.Provider value={{ user, setUser }}>
+					<Switch>
 						<Route exact path="/">
 							<Header />
 							<Home />
@@ -94,10 +94,12 @@ function App() {
 							path="/manage-messages"
 							component={ManageMessages}
 						/>
-					</userContext.Provider>
 
-					<Route component={NotFound} />
-				</Switch>
+						<Route path="*">
+							<NotFound />
+						</Route>
+					</Switch>
+				</userContext.Provider>
 			</Router>
 		</Fragment>
 	);

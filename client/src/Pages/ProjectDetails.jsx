@@ -10,24 +10,31 @@ function ProjectDetails() {
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
+		let mounted = true;
 		Axios.get(`/api/projects/${projectid}`)
 			.then((res) => {
-				setLoading(false);
-				setData(res.data[0]);
+				if (mounted) {
+					setLoading(false);
+					setData(res.data[0]);
+				}
 			})
 			.catch((error) => {
 				setShowNoData(true);
 				setLoading(false);
 				console.log(error.message);
 			});
-		// return () => {
-		// 	cleanup
-		// }
+		return () => {
+			mounted = false;
+		};
 	}, [projectid, showNoData]);
 	return (
 		<div className="mt-5 mb-5">
 			{loading ? (
-				<div>Loading ...</div>
+				<div className="text-center loader">
+					<div className="spinner-grow" role="status">
+						<span className="sr-only">Loading...</span>
+					</div>
+				</div>
 			) : (
 				<div className="container mb-5">
 					{showNoData ? (
@@ -118,7 +125,7 @@ function ProjectDetails() {
 							</div>
 
 							<div className="row">
-								<div className="col-lg-8 col-12">
+								<div className="col-lg-8 col-12 p-2">
 									<div className="card mb-3 project-details-card">
 										<div className="card-body">
 											<h3 className="project-preview-description">
@@ -171,7 +178,7 @@ function ProjectDetails() {
 										</div>
 									</div>
 								</div>
-								<div className="col-lg-4 col-12 text-center view-project-card">
+								<div className="col-lg-4 col-12 text-center view-project-card p-2">
 									<div className="card project-details-card">
 										<div className="card-body">
 											<h3>View Project</h3>

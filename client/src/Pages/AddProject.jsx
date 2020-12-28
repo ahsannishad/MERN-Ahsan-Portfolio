@@ -8,6 +8,7 @@ import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 import "animate.css/animate.min.css";
 import Imageplaceholder from "./../Assets/Images/picture1.svg";
+import { set } from "mongoose";
 
 function AddProject() {
 	const [title, setTitle] = useState("");
@@ -69,6 +70,16 @@ function AddProject() {
 				})
 				.then((res) => {
 					setPublishing(false);
+					setTitle("");
+					setCategory("");
+					setDescription("");
+					setPreviewUrl("");
+					setFunctionalities([]);
+					setFrameworks([]);
+					setImagesURL([]);
+					setImagesRefer([]);
+					setPreviewImages([]);
+					setUploadingImages(false);
 					showAlert({
 						title: "Success!",
 						message: "Successfully saved the project",

@@ -1,7 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { userContext } from "./../Components/userContext";
+import axios from "axios";
 
 function Navbar() {
+	const { user, setUser } = useContext(userContext);
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
 			<div className="container">
@@ -59,13 +63,23 @@ function Navbar() {
 							</NavLink>
 						</li>
 					</ul>
-					<ul className="navbar-nav ml-auto public-logout-btn">
-						<li className="nav-item">
-							<button type="button" className="btn btn-dark btn-sm">
-								Logout
-							</button>
-						</li>
-					</ul>
+					{user && (
+						<ul className="navbar-nav ml-auto public-logout-btn">
+							<li className="nav-item">
+								<button
+									type="button"
+									className="btn btn-dark btn-sm"
+									onClick={() => {
+										axios.post("/api/user/logout").then((res) => {
+											setUser(false);
+										});
+									}}
+								>
+									Logout
+								</button>
+							</li>
+						</ul>
+					)}
 				</div>
 			</div>
 		</nav>

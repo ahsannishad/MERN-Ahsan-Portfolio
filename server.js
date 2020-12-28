@@ -63,19 +63,23 @@ app
 	.route("/api/user")
 
 	.post((req, res) => {
-		User.register(
-			{ username: req.body.username },
-			req.body.password,
-			(error, user) => {
-				if (error) {
-					res.status(500).send(error);
-				} else {
-					passport.authenticate("local")(req, res, () => {
-						res.send(user.username);
-					});
+		if (req.isAuthenticated()) {
+			User.register(
+				{ username: req.body.username },
+				req.body.password,
+				(error, user) => {
+					if (error) {
+						res.status(500).send(error);
+					} else {
+						passport.authenticate("local")(req, res, () => {
+							res.send(user.username);
+						});
+					}
 				}
-			}
-		);
+			);
+		} else {
+			res.status(409).send("You are not authorized");
+		}
 	})
 	.get((req, res) => {
 		User.find({ username: req.body.username }, function (error, user) {
@@ -180,33 +184,41 @@ app
 		});
 	})
 	.post((req, res) => {
-		const projects = new Projects({
-			title: req.body.title,
-			category: req.body.category,
-			description: req.body.description,
-			previewImages: req.body.previewImages,
-			imagesRefer: req.body.imagesRefer,
-			frameworks: req.body.frameworks,
-			functionalities: req.body.functionalities,
-			previewLink: req.body.previewLink,
-		});
+		if (req.isAuthenticated()) {
+			const projects = new Projects({
+				title: req.body.title,
+				category: req.body.category,
+				description: req.body.description,
+				previewImages: req.body.previewImages,
+				imagesRefer: req.body.imagesRefer,
+				frameworks: req.body.frameworks,
+				functionalities: req.body.functionalities,
+				previewLink: req.body.previewLink,
+			});
 
-		projects.save((error, success) => {
-			if (error) {
-				res.status(500).send(error);
-			} else {
-				res.send("Project Saved Successfully");
-			}
-		});
+			projects.save((error, success) => {
+				if (error) {
+					res.status(500).send(error);
+				} else {
+					res.send("Project Saved Successfully");
+				}
+			});
+		} else {
+			res.status(409).send("You are not authorized");
+		}
 	})
 	.delete((req, res) => {
-		Projects.deleteMany({}, (error, success) => {
-			if (error) {
-				res.status(500).send(error);
-			} else {
-				res.send("Successfully Deleted All Projects");
-			}
-		});
+		if (req.isAuthenticated()) {
+			Projects.deleteMany({}, (error, success) => {
+				if (error) {
+					res.status(500).send(error);
+				} else {
+					res.send("Successfully Deleted All Projects");
+				}
+			});
+		} else {
+			res.status(409).send("You are not authorized");
+		}
 	});
 
 //Featured project
@@ -240,37 +252,47 @@ app
 	})
 
 	.put((req, res) => {
-		Projects.findByIdAndUpdate(
-			{ _id: req.params.id },
-			{
-				title: req.body.title,
-				category: req.body.category,
-				description: req.body.description,
-				previewImages: req.body.previewImages,
-				imagesRefer: req.body.imagesRefer,
-				frameworks: req.body.frameworks,
-				functionalities: req.body.functionalities,
-				previewLink: req.body.previewLink,
-			},
-			(error, success) => {
+		if (req.isAuthenticated()) {
+			Projects.findByIdAndUpdate(
+				{ _id: req.params.id },
+				{
+					title: req.body.title,
+					category: req.body.category,
+					description: req.body.description,
+					previewImages: req.body.previewImages,
+					imagesRefer: req.body.imagesRefer,
+					frameworks: req.body.frameworks,
+					functionalities: req.body.functionalities,
+					previewLink: req.body.previewLink,
+				},
+				(error, success) => {
+					if (error) {
+						res
+							.status(500)
+							.send("something went wrong while updating the project");
+					} else {
+						res.send("Project Updated Successfully");
+					}
+				}
+			);
+		} else {
+			res.status(409).send("You are not authorized");
+		}
+	})
+	.delete((req, res) => {
+		if (req.isAuthenticated()) {
+			Projects.findByIdAndDelete({ _id: req.params.id }, (error, success) => {
 				if (error) {
 					res
 						.status(500)
-						.send("something went wrong while updating the project");
+						.send("something went wrong while deleting the project");
 				} else {
-					res.send("Project Updated Successfully");
+					res.send("Successfully Deleted The Project");
 				}
-			}
-		);
-	})
-	.delete((req, res) => {
-		Projects.findByIdAndDelete({ _id: req.params.id }, (error, success) => {
-			if (error) {
-				res.status(500).send("something went wrong while deleting the project");
-			} else {
-				res.send("Successfully Deleted The Project");
-			}
-		});
+			});
+		} else {
+			res.status(409);
+		}
 	});
 
 //....................................Messages........................................//
@@ -322,20 +344,28 @@ app
 			});
 	})
 	.delete((req, res) => {
-		Messages.deleteMany({}).then((deleted) => {
-			res.send("Successfully deleted all messages");
-		});
+		if (req.isAuthenticated()) {
+			Messages.deleteMany({}).then((deleted) => {
+				res.send("Successfully deleted all messages");
+			});
+		} else {
+			res.status(409);
+		}
 	});
 
 //delete individual message
 app.delete("/api/messages/:id", (req, res) => {
-	Messages.findByIdAndDelete({ _id: req.params.id })
-		.then((deleted) => {
-			res.send("successfully deleted the message");
-		})
-		.catch((error) => {
-			res.status(500).send("Something went wrong while deleting the project");
-		});
+	if (req.isAuthenticated()) {
+		Messages.findByIdAndDelete({ _id: req.params.id })
+			.then((deleted) => {
+				res.send("successfully deleted the message");
+			})
+			.catch((error) => {
+				res.status(500).send("Something went wrong while deleting the project");
+			});
+	} else {
+		res.status(409);
+	}
 });
 
 //..................................Production Setup.......................................//

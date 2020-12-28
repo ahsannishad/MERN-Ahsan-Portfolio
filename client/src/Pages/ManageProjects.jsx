@@ -170,87 +170,37 @@ function ManageProjects() {
 																			<button
 																				type="button"
 																				className="dropdown-item btn btn-light"
-																				data-toggle="modal"
-																				data-target="#staticBackdrop"
+																				onClick={(event) => {
+																					if (
+																						window.confirm(
+																							`Are You Sure You Want to Delete ${project.title} ?`
+																						)
+																					) {
+																						axios
+																							.delete(
+																								`/api/projects/${project._id}`
+																							)
+																							.then((res) => {
+																								showAlert({
+																									title: "Success!",
+																									message:
+																										"Successfully deleted the project",
+																									version: "success",
+																								});
+																							})
+																							.catch((error) => {
+																								showAlert({
+																									title: "Error!",
+																									message:
+																										"Something went wrong while deleting the project",
+																									version: "danger",
+																								});
+																							});
+																					}
+																				}}
 																			>
 																				Delete
 																			</button>
-																		</div>
-																		<div
-																			className="modal fade"
-																			id="staticBackdrop"
-																			data-backdrop="static"
-																			data-keyboard="false"
-																			tabIndex="-1"
-																			aria-labelledby="staticBackdropLabel"
-																			aria-hidden="true"
-																		>
-																			<div className="modal-dialog modal-dialog-centered">
-																				<div className="modal-content">
-																					<div className="modal-header">
-																						<h5
-																							className="modal-title"
-																							id="staticBackdropLabel"
-																						>
-																							Delete This Project
-																						</h5>
-																						<button
-																							type="button"
-																							className="close"
-																							data-dismiss="modal"
-																							aria-label="Close"
-																						>
-																							<span aria-hidden="true">
-																								&times;
-																							</span>
-																						</button>
-																					</div>
-																					<div className="modal-body">
-																						<p>
-																							Are you sure you want to delete "
-																							{project.title}" this project?
-																						</p>
-																					</div>
-																					<div className="modal-footer">
-																						<button
-																							type="button"
-																							className="btn btn-dark"
-																							data-dismiss="modal"
-																						>
-																							Cancel
-																						</button>
-																						<button
-																							data-dismiss="modal"
-																							type="button"
-																							className="btn btn-danger"
-																							onClick={(event) => {
-																								axios
-																									.delete(
-																										`/api/projects/${project._id}`
-																									)
-																									.then((res) => {
-																										showAlert({
-																											title: "Success!",
-																											message:
-																												"Successfully deleted the project",
-																											version: "success",
-																										});
-																									})
-																									.catch((error) => {
-																										showAlert({
-																											title: "Error!",
-																											message:
-																												"Something went wrong while deleting the project",
-																											version: "danger",
-																										});
-																									});
-																							}}
-																						>
-																							Ok
-																						</button>
-																					</div>
-																				</div>
-																			</div>
 																		</div>
 																	</td>
 																</tr>

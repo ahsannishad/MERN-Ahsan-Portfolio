@@ -257,7 +257,7 @@ nav {
 /* Home Page design ends */
 
 .project-preview-image {
-	border-radius: 20px;
+	border-radius: 10px;
 }
 
 .view-project-card {
@@ -265,7 +265,7 @@ nav {
 }
 
 .project-details-card {
-	border-radius: 20px;
+	border-radius: 10px;
 }
 .project-preview-button {
 	border-radius: 10px;

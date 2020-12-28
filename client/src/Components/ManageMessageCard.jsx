@@ -38,69 +38,26 @@ function ManageMessageCard(props) {
 							<button
 								type="button"
 								className="dropdown-item btn btn-light"
-								data-toggle="modal"
-								data-target="#staticBackdrop"
+								onClick={(event) => {
+									if (
+										window.confirm(
+											`Are You Sure You Want to Delete ${props.name} 's Message ?`
+										)
+									) {
+										Axios.delete(`/api/messages/${props.id}`)
+											.then((res) => {
+												console.log("Successfully deleted the message");
+											})
+											.catch((error) => {
+												console.log(
+													"Something went wrong while deleting the message"
+												);
+											});
+									}
+								}}
 							>
 								Delete
 							</button>
-						</div>
-
-						<div
-							className="modal fade"
-							id="staticBackdrop"
-							data-backdrop="static"
-							data-keyboard="false"
-							tabIndex="-1"
-							aria-labelledby="staticBackdropLabel"
-							aria-hidden="true"
-						>
-							<div className="modal-dialog modal-dialog-centered">
-								<div className="modal-content">
-									<div className="modal-header">
-										<h5 className="modal-title" id="staticBackdropLabel">
-											Delete Message
-										</h5>
-										<button
-											type="button"
-											className="close"
-											data-dismiss="modal"
-											aria-label="Close"
-										>
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div className="modal-body">
-										<p>Are you Sure You want to delete the message</p>
-									</div>
-									<div className="modal-footer">
-										<button
-											type="button"
-											className="btn btn-dark"
-											data-dismiss="modal"
-										>
-											Cancel
-										</button>
-										<button
-											data-dismiss="modal"
-											type="button"
-											className="btn btn-danger"
-											onClick={(event) => {
-												Axios.delete(`/api/messages/${props.id}`)
-													.then((res) => {
-														console.log("Successfully deleted the message");
-													})
-													.catch((error) => {
-														console.log(
-															"Something went wrong while deleting the message"
-														);
-													});
-											}}
-										>
-											Ok
-										</button>
-									</div>
-								</div>
-							</div>
 						</div>
 
 						<h5
