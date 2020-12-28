@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import ProjectCard from "../Components/ProjectCard";
 import Axios from "axios";
+import moment from "moment";
 
 function Projects() {
 	const [data, setData] = useState([]);
@@ -39,12 +40,14 @@ function Projects() {
 							return (
 								<ProjectCard
 									key={project._id}
-									link={`/projects/${project._id}`}
 									thumbnail={project.previewImages[0]}
-									title={project.title.substring(0, 50) + "..."}
-									badge1={project.frameworks[0]}
-									badge2={project.frameworks[1]}
-									badge3={project.frameworks[2]}
+									title={project.title.substring(0, 20) + "..."}
+									projectBadge1={project.frameworks[0]}
+									projectBadge2={project.frameworks[1]}
+									projectBadge3={project.frameworks[2]}
+									link={`/projects/${project._id}`}
+									date={moment(data.createdAt).calendar()}
+									description={project.description.substring(0, 80) + "..."}
 								/>
 							);
 						})}

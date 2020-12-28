@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProjectCard from "../Components/ProjectCard";
 import Heading from "../Components/Heading";
+import moment from "moment";
 function FeaturedProjects() {
 	const [data, setData] = useState([]);
 
@@ -33,12 +34,14 @@ function FeaturedProjects() {
 						return (
 							<ProjectCard
 								key={project._id}
-								link={`/projects/${project._id}`}
 								thumbnail={project.previewImages[0]}
-								title={project.title.substring(0, 50) + "..."}
-								badge1={project.frameworks[0]}
-								badge2={project.frameworks[1]}
-								badge3={project.frameworks[2]}
+								title={project.title.substring(0, 20) + "..."}
+								projectBadge1={project.frameworks[0]}
+								projectBadge2={project.frameworks[1]}
+								projectBadge3={project.frameworks[2]}
+								link={`/projects/${project._id}`}
+								date={moment(data.createdAt).calendar()}
+								description={project.description.substring(0, 80) + "..."}
 							/>
 						);
 					})}
