@@ -40,7 +40,7 @@ function FeaturedProjects() {
 								projectBadge2={project.frameworks[1]}
 								projectBadge3={project.frameworks[2]}
 								link={`/projects/${project._id}`}
-								date={moment(data.createdAt).calendar()}
+								date={moment(project.createdAt).calendar()}
 								description={project.description.substring(0, 80) + "..."}
 							/>
 						);

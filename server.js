@@ -5,13 +5,18 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const path = require("path");
-
+const cors = require("cors");
+const twilio = require("twilio");
 //Defining App
 const app = express();
-
+app.use(cors());
 //Body persing Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "50mb" }));
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require("twilio")(accountSid, authToken);
 
 //Using session and passport
 app.use(
@@ -367,6 +372,23 @@ app.delete("/api/messages/:id", (req, res) => {
 		res.status(409);
 	}
 });
+
+//...................................Automatic SMS api................................//
+
+app.post("/sendsms", (req, res) => {
+	client.messages
+		.create({
+			body: `Hello ${req.body.name}, Thank you for subscribing to http://omerfahad.com/ You are now a Part of our team. Keep supporting us. For any query plese visit http://omerfahad.com/ `,
+			from: "+1 708 998 5563",
+			to: req.body.number,
+		})
+		.then((message) => res.send("SMS Send Successfully"))
+		.catch((error) => {
+			console.log(error);
+		});
+});
+
+//...................................Automatic SMS api................................//
 
 //..................................Production Setup.......................................//
 
