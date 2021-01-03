@@ -5,11 +5,10 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const path = require("path");
-const cors = require("cors");
 const twilio = require("twilio");
 //Defining App
 const app = express();
-app.use(cors());
+
 //Body persing Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "50mb" }));
