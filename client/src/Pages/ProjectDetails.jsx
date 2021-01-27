@@ -29,6 +29,60 @@ function ProjectDetails() {
 	}, [projectid, showNoData]);
 	return (
 		<div className="mt-5 mb-5">
+			<div
+				className="modal fade"
+				id="first-preview-image"
+				tabIndex="-1"
+				aria-labelledby="first-preview-image"
+				aria-hidden="true"
+			>
+				<div className="modal-dialog  modal-dialog-centered">
+					<div className="modal-content">
+						<img
+							className=""
+							src={data.previewImages && data.previewImages[0]}
+							width="100%"
+							alt="project slide show"
+						/>
+					</div>
+				</div>
+			</div>
+			<div
+				className="modal fade"
+				id="second-preview-image"
+				tabIndex="-1"
+				aria-labelledby="second-preview-image"
+				aria-hidden="true"
+			>
+				<div className="modal-dialog  modal-dialog-centered">
+					<div className="modal-content">
+						<img
+							className=""
+							src={data.previewImages && data.previewImages[1]}
+							width="100%"
+							alt="project slide show"
+						/>
+					</div>
+				</div>
+			</div>
+			<div
+				className="modal fade"
+				id="third-preview-image"
+				tabIndex="-1"
+				aria-labelledby="third-preview-image"
+				aria-hidden="true"
+			>
+				<div className="modal-dialog  modal-dialog-centered">
+					<div className="modal-content">
+						<img
+							className=""
+							src={data.previewImages && data.previewImages[2]}
+							width="100%"
+							alt="project slide show"
+						/>
+					</div>
+				</div>
+			</div>
 			{loading ? (
 				<div className="text-center loader">
 					<div className="spinner-grow" role="status">
@@ -40,7 +94,9 @@ function ProjectDetails() {
 					{showNoData ? (
 						<div className="container text-center mt-5 mb-5">
 							<h1 className="mt-5">404 Not Found</h1>
-							<h5 className="mb-5">opps! No Data Found With This Id</h5>
+							<h5 className="mb-5">
+								opps! No Data Found, This link might be broken
+							</h5>
 						</div>
 					) : (
 						<div>
@@ -88,21 +144,23 @@ function ProjectDetails() {
 												d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"
 											/>
 										</svg>{" "}
-										{moment(data.createdAt).calendar()}
+										{moment(data.createdAt).format("Do MMM YY")}
 									</span>
 								</div>
 							</div>
 							<hr />
 							<div className="row mb-3">
-								<div className="col-lg-8 col-12 p-2">
+								<div className="col-lg-8 col-12 pb-3">
 									<img
 										className="project-preview-image"
 										src={data.previewImages && data.previewImages[0]}
 										width="100%"
 										alt="project slide show"
+										data-toggle="modal"
+										data-target="#first-preview-image"
 									/>
 								</div>
-								<div className="col-lg-4 col-12 p-2">
+								<div className="col-lg-4 col-12">
 									<div className="row">
 										<div className="col-lg-12 col-6 mb-3">
 											<img
@@ -110,6 +168,8 @@ function ProjectDetails() {
 												src={data.previewImages && data.previewImages[1]}
 												width="100%"
 												alt="project slide show"
+												data-toggle="modal"
+												data-target="#second-preview-image"
 											/>
 										</div>
 										<div className="col-lg-12 col-6">
@@ -118,6 +178,8 @@ function ProjectDetails() {
 												src={data.previewImages && data.previewImages[2]}
 												width="100%"
 												alt="project slide show"
+												data-toggle="modal"
+												data-target="#third-preview-image"
 											/>
 										</div>
 									</div>

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
 import { userContext } from "./../Components/userContext";
 import axios from "axios";
 
@@ -9,9 +8,9 @@ function Navbar() {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
 			<div className="container">
-				<NavLink activeClassName="active-menu" className="navbar-brand" to="/">
+				<a className="navbar-brand" href="/">
 					Ahsan
-				</NavLink>
+				</a>
 				<button
 					className="navbar-toggler"
 					type="button"
@@ -26,41 +25,20 @@ function Navbar() {
 				<div className="collapse navbar-collapse" id="navbarNav">
 					<ul className="navbar-nav">
 						<li className="nav-item">
-							<NavLink
-								activeClassName="active-menu"
-								className="nav-link"
-								to="/"
-							>
+							<a className="nav-link" href="/">
 								Home <span className="sr-only">(current)</span>
-							</NavLink>
+							</a>
 						</li>
 						<li className="nav-item">
-							<NavLink
-								activeClassName="active-menu"
-								className="nav-link"
-								to="/projects"
-							>
+							<a className="nav-link" href="/projects">
 								Projects
-							</NavLink>
-						</li>
-						<li className="nav-item">
-							<NavLink
-								activeClassName="active-menu"
-								className="nav-link"
-								to="/blogs"
-							>
-								Blogs
-							</NavLink>
+							</a>
 						</li>
 
 						<li className="nav-item">
-							<NavLink
-								activeClassName="active-menu"
-								className="nav-link"
-								to="/contact"
-							>
+							<a className="nav-link" href="/contact">
 								Contact
-							</NavLink>
+							</a>
 						</li>
 					</ul>
 					{user && (

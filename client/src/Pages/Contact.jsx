@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useState } from "react";
 import axios from "axios";
 import SubHeading from "../Components/SubHeading";
-
+import Avatar from "./../Assets/Images/Transparent Portrait.png";
 import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
@@ -64,11 +64,7 @@ function Contact() {
 				<div className="container">
 					<div className="row">
 						<div className="col-sm-6 text-center mt-4 mb-4">
-							<img
-								className="mb-4 avatar"
-								src="https://scontent.fdac41-1.fna.fbcdn.net/v/t1.0-9/123674333_1218376621882766_4037199215118466441_o.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=ioYj518qiAEAX9aw1_u&_nc_ht=scontent.fdac41-1.fna&oh=e57d3c5683c80d17e71492e0adf6930d&oe=60002D75"
-								alt="avatar"
-							/>
+							<img className="mb-4 avatar" src={Avatar} alt="avatar" />
 
 							<h2 className="name">Ahsan Nishad</h2>
 							<SubHeading SubHeading="Hey, are you reading my bio again?" />

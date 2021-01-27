@@ -42,6 +42,9 @@ nav {
 .bi {
 	margin-bottom: 1.5px;
 }
+.hero-segment {
+	padding-top: 10px;
+}
 .segment {
 	padding-top: 100px;
 	padding-bottom: 100px;
@@ -74,6 +77,9 @@ nav {
 		padding-bottom: 50px;
 		width: 100%;
 	}
+	.hero-introduction-text {
+		margin-top: -150px;
+	}
 
 	.introduction {
 		text-align: center !important;
@@ -95,7 +101,6 @@ nav {
 	.section-image {
 		margin-bottom: 50px;
 		width: 100%;
-		height: 100%;
 	}
 
 	.project-preview-title {
@@ -200,8 +205,11 @@ nav {
 }
 
 /* Home Page design starts */
+.hero-introduction-text {
+	padding-top: 100px;
+}
 .hero {
-	background-color: #eceaec;
+	background-color: white;
 }
 .sub-hero {
 	background-color: white;
@@ -258,6 +266,10 @@ nav {
 
 .project-preview-image {
 	border-radius: 10px;
+}
+.close-button {
+	position: relative;
+	top: 20px;
 }
 
 .view-project-card {

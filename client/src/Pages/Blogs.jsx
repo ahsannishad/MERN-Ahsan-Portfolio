@@ -1,8 +1,8 @@
 import React from "react";
 import BlogCard from "./../Components/BlogCard";
-import Thumbnail1 from "./../Assets/Images/Image4.webp";
+import Thumbnail1 from "./../Assets/Images/Image2.jpg";
 import Thumbnail2 from "./../Assets/Images/Image2.jpg";
-import Thumbnail3 from "./../Assets/Images/Image7.webp";
+import Thumbnail3 from "./../Assets/Images/Image2.jpg";
 
 function Blogs() {
 	return (

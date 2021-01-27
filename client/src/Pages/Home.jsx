@@ -3,7 +3,6 @@ import Hero from "../Layouts/Hero";
 import SubHero from "../Layouts/SubHero";
 import Expertise from "../Layouts/Expertise";
 import FeaturedProjects from "../Layouts/FeaturedProjects";
-import FeaturedBlogs from "../Layouts/FeaturedBlogs";
 
 function Home() {
 	return (
@@ -12,8 +11,6 @@ function Home() {
 			<SubHero />
 			<Expertise />
 			<FeaturedProjects />
-			<hr className="mt-5 mt-5" />
-			<FeaturedBlogs />
 		</Fragment>
 	);
 }

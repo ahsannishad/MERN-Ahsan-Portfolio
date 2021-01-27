@@ -3,13 +3,16 @@ import Heading from "../Components/Heading";
 import Introduction from "../Components/Introduction";
 import SectionImage from "../Components/SectionImage";
 import SubHeading from "../Components/SubHeading";
-import HeroImage from "./../Assets/Images/Image1.gif";
+import HeroImage from "./../Assets/Images/_MG_7510.png";
 function Hero() {
 	return (
 		<div className="hero">
-			<div className="container segment">
+			<div className="container hero-segment">
 				<div className="row">
 					<div className="col-lg-6 col-md-6 col-sm-12">
+						<SectionImage image={HeroImage} alt="Hero" />
+					</div>
+					<div className="col-lg-6 col-md-6 col-sm-12 hero-introduction-text">
 						<Introduction Introduction="Hello" textAlign="left" />
 						<Heading
 							Heading="I am Ahsan a Developer, from Dhaka, Bangladesh"
@@ -23,9 +26,6 @@ function Hero() {
                                         business by developing beautifull websites."
 							textAlign="left"
 						/>
-					</div>
-					<div className="col-lg-6 col-md-6 col-sm-12">
-						<SectionImage image={HeroImage} alt="Hero" />
 					</div>
 				</div>
 			</div>
