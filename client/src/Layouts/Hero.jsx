@@ -3,7 +3,7 @@ import Heading from "../Components/Heading";
 import Introduction from "../Components/Introduction";
 import SectionImage from "../Components/SectionImage";
 import SubHeading from "../Components/SubHeading";
-import HeroImage from "./../Assets/Images/_MG_7510.png";
+import HeroImage from "./../Assets/Images/profile-pic.png";
 function Hero() {
 	return (
 		<div className="hero">
