@@ -9,6 +9,8 @@ nav {
 .avatar {
 	border-radius: 100%;
 	width: 200px;
+	height: 200px;
+	border: 5px solid #212529;
 }
 
 .contact-form {

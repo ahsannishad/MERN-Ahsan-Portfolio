@@ -152,6 +152,7 @@ function ProjectDetails() {
 							<div className="row mb-3">
 								<div className="col-lg-8 col-12 pb-3">
 									<img
+										loading="lazy"
 										className="project-preview-image"
 										src={data.previewImages && data.previewImages[0]}
 										width="100%"
@@ -164,6 +165,7 @@ function ProjectDetails() {
 									<div className="row">
 										<div className="col-lg-12 col-6 mb-3">
 											<img
+												loading="lazy"
 												className="project-preview-image"
 												src={data.previewImages && data.previewImages[1]}
 												width="100%"
@@ -174,6 +176,7 @@ function ProjectDetails() {
 										</div>
 										<div className="col-lg-12 col-6">
 											<img
+												loading="lazy"
 												className="project-preview-image"
 												src={data.previewImages && data.previewImages[2]}
 												width="100%"

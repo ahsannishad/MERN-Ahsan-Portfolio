@@ -6,6 +6,7 @@ function ProjectCard(props) {
 		<div className="col-lg-4 col-md-4 mb-4">
 			<div className="card blog-card">
 				<img
+					loading="lazy"
 					src={props.thumbnail}
 					className="card-img-top blog-card-thumbnail"
 					alt="thumbnail"
